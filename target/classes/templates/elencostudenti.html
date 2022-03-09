@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Università di Atlantide - Lista studenti</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+</head>
+<body>
+<div class="header-menu">Università di Atlantide</div>
+<div class="header-section">Elenco studenti</div>
+ <div th:switch="${studenti.size()}">
+   <div class="no-item-found" th:case="0">Nessuno studente trovato!</div>
+   <!-- * for default case -->
+   <div th:case="*">
+   <table width="100%">
+     <thead>
+        <tr>
+            <th class="header">Matricola</th>
+            <th class="header">Nome</th>
+            <th class="header">Cognome</th>
+            <th class="header">Nato/a il</th>
+            <th class="header">Email</th>
+            <th class="header">Indirizzo</th>
+            <th class="header">Citta</th>
+            <th class="header">Codice Corso Laurea</th>
+            <th class="header">Nome Corso</th>
+            <th class="header"></th>
+            <th class="header"></th>
+        </tr>
+      </thead>
+      <tbody>
+            <tr th:each="studente : ${studenti}">
+               <td th:text="${studente.matricola}"></td>
+               <td th:text="${studente.nome}"></td>
+               <td th:text="${studente.cognome}"></td>
+               <td th:text="${studente.dataNascita}"></td>
+               <td th:text="${studente.email}"></td>
+               <td th:text="${studente.indirizzo}"></td>
+               <td th:text="${studente.citta}"></td>
+               <td th:text="${studente.corsoDiLaurea.codice}"></td>
+               <td th:text="${studente.corsoDiLaurea.nome}"></td>
+               <!-- <td><a th:href="@{/studenti/mostraFormAggiorna/{matricola}(matricola=${studente.matricola})}">Aggiorna</i></a></td> -->
+            </tr>
+       </tbody>
+   </table>
+   <div class="link-add"><a href="/studente/mostraFormAggiungi">Aggiungi studente</a></div>
+  </div>
+    <div class="link-home"><a href="/">Torna alla Home</a></div>
+    <div class="footer">Powered by Epicode School</div>
+   </body>
+</html>

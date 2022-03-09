@@ -1,4 +1,4 @@
-package it.epicode.be.controller;
+package it.epicode.be.controller.rest;
 
 import java.util.Optional;
 

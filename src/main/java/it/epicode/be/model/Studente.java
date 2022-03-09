@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -58,10 +59,23 @@ public class Studente {
 	@Email
 	private String email;
     
+    @OneToOne(mappedBy = "studente")
+    private Libretto libretto;
+    
     @NotNull
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @ManyToOne(cascade = CascadeType.PERSIST) // Corso di laurea "eredita" il salvataggio da Studente che lo richiama.
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // Corso di laurea "eredita" il salvataggio da Studente che lo richiama.
     
     private CorsoDiLaurea corsoDiLaurea;
+
+	@Override
+	public String toString() {
+		return "Studente [Matricola=" + matricola + ", Nome=" + nome + ", Cognome=" + cognome + ", DataNascita="
+				+ dataNascita + ", Indirizzo=" + indirizzo + ", Citta=" + citta + ", Email=" + email
+				+ ", Codice corso= " + corsoDiLaurea.getCodice() + " Materia : " + corsoDiLaurea.getNome() + " Indirizzo: " + corsoDiLaurea.getIndirizzo()
+				+ " Numero esami: " + corsoDiLaurea.getNumeroEsami() +  " ]";
+	}
+    
+    
 
 }
